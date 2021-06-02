@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html class="html" xmln s:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link th:href="@{/css/main_page_css.css}" rel="stylesheet"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/1fe8840a0f.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<header class="header">
+  <a href="" class="logo">S2TEXT</a>
+  <input class="menu-btn" type="checkbox" id="menu-btn" />
+  <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
+  <ul class="menu" style="cursor: pointer">
+    <li><a id="history" style="display: none">history</a></li>
+    <li><a id="signIn" href="/auth" >Sign in</a></li>
+    <li><a id="logout" style="display: none">logout</a></li>
+
+  </ul>
+</header>
+
+
+
+
+<div class="min-div-flex" style="
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;">
+
+<div class="newPost">
+  <center><h3>Add Text here</h3>
+
+  <div style="display: flex; justify-content: space-between;">
+    <select class="language-selector" id="language-selector" >
+      <option value="pt">Português</option>
+      <option value="de">Deutsch</option>
+      <option value="en">English</option>
+      <option value="es">Español</option>
+      <option value="ru" selected>Русский</option>
+      <option value="fr">Français</option>
+    </select>
+  </div></center>
+
+
+
+
+  <div class="editor" id = "textToTranslate" contenteditable></div>
+  <div class="buttons">
+    <!--<button type="button">save draft</button>-->
+    <button data-func="clearTranslate" type="button" >clear</button>
+    <button data-func="save" type="button" id="translateBtn" >translate</button>
+  </div>
+</div>
+
+<!--  <div class="mic-container">-->
+<!--    <div class="circle">-->
+<!--      <i class="fas fa-microphone"></i>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<div class="newPost">
+  <center><h3>Translation</h3></center>
+  <div style="display: flex; justify-content:right; ">
+    <select class="language-selector" id="language-selector2">
+      <option value="pt">Português</option>
+      <option value="de">Deutsch</option>
+      <option value="en" selected>English</option>
+      <option value="es">Español</option>
+      <option value="ru">Русский</option>
+      <option value="fr">Français</option>
+    </select>
+  </div>
+    <div class="editor" id="result" contenteditable></div>
+  <div class="buttons">
+    <!--<button type="button">save draft</button>-->
+    <button data-func="clearResult" style="background-color: #C1CFD9" type="button" >Clear</button>
+  </div>
+</div>
+
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyDxiSglc8jYouMhhYMc_wz43j4uS53UEYE",
+    authDomain: "speech2text-50475.firebaseapp.com",
+    databaseURL: "https://speech2text-50475-default-rtdb.firebaseio.com",
+    projectId: "speech2text-50475",
+    storageBucket: "speech2text-50475.appspot.com",
+    messagingSenderId: "433899594110",
+    appId: "1:433899594110:web:dcf0c617e373a77b28d32f",
+    measurementId: "G-M8PVV5CDRL"
+  };
+  firebase.initializeApp(config);
+</script>
+
+
+<script type="text/javascript" th:src="@{/js/main_page_js.js}"></script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Firebase Login</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <link th:href="@{/css/auth.css}" rel="stylesheet"/>
+
+</head>
+<body>
+
+  <div id="login_div" class="main-div">
+
+    <center><h3>Login</h3></center>
+    <input type="email" placeholder="Email..." id="email_field_log" />
+    <input type="password" placeholder="Password..." id="password_field_log" />
+    <button onclick="login()">Login to Account</button><br>
+    <center><a onclick="registration_link()" style="color: #5d8ffc;cursor: pointer">still no account? sign up...</a></center>
+    <center><a id="resetLink" onclick="reset_pass_link()" style="color: #5d8ffc;cursor: pointer; display: none">forgot password? reset it</a></center>
+
+  </div>
+
+  <div id="registration_div" class="main-div" style="display: none;">
+
+    <center> <h3>Registration</h3></center>
+
+    <input type="email" placeholder="Email" id="email_field" />
+    <input type="text" placeholder="Username" id="username_field" />
+    <input type="text" placeholder="Firstname" id="firstname_field" />
+    <input type="text" placeholder="Lastname" id="lastname_field" />
+    <input type="password" placeholder="Password" id="password_field" />
+
+    <button onclick="registration()"> Registration </button><br>
+    <center><a onclick="login_link()" style="color: #5d8ffc;cursor: pointer">back to the login</a></center>
+
+  </div>
+
+
+  <div id="reset_pass_div" class="main-div" style="display: none;">
+    <center><h3>Reset password</h3></center>
+    <input type="email" placeholder="Email..." id="email_field_reset" />
+    <button onclick="resetPass()"> Send email </button><br>
+    <center><a onclick="login_link()" style="color: #5d8ffc;cursor: pointer">back to the login</a></center>
+
+  </div>
+
+
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+
+  <script>
+    var config = {
+      apiKey: "AIzaSyDxiSglc8jYouMhhYMc_wz43j4uS53UEYE",
+      authDomain: "speech2text-50475.firebaseapp.com",
+      databaseURL: "https://speech2text-50475-default-rtdb.firebaseio.com",
+      projectId: "speech2text-50475",
+      storageBucket: "speech2text-50475.appspot.com",
+      messagingSenderId: "433899594110",
+      appId: "1:433899594110:web:dcf0c617e373a77b28d32f",
+      measurementId: "G-M8PVV5CDRL"
+    };
+
+    firebase.initializeApp(config);
+
+  </script>
+
+  <script type="text/javascript" th:src="@{/js/auth.js}"></script>
+
+
+</body>
+</html>

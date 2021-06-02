@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"><head>
+<meta charset="UTF-8">
+  <title>Login & Register</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'>
+  <link th:href="@{/css/auth_css.css}" rel="stylesheet"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+<div class="form">
+
+  <ul class="tab-group">
+    <li class="tab active"><a href="#signup">Register</a></li>
+    <li class="tab"><a href="#login">Log In</a></li>
+  </ul>
+
+  <div class="tab-content">
+    <div id="signup">
+      <h1>Register</h1>
+      <h1 th:text="${error}" class="error"></h1>
+      <h1 th:text="${success}"></h1>
+      <form action="/registration" method="post">
+        <div class="top-row">
+          <div class="field-wrap">
+            <label>
+              First Name<span class="req">*</span>
+            </label>
+            <input type="text" name="firstname" required autocomplete="off" />
+          </div>
+
+          <div class="field-wrap">
+            <label>
+              Last Name<span class="req">*</span>
+            </label>
+            <input type="text" name="lastname"  required autocomplete="off" />
+          </div>
+        </div>
+
+        <div class="field-wrap">
+          <label>
+            Username<span class="req">*</span>
+          </label>
+          <input type="text" name="username" required autocomplete="off" />
+        </div>
+
+        <div class="field-wrap">
+          <label>
+            Email<span class="req">*</span>
+          </label>
+          <input type="email" name="email" required autocomplete="off" />
+        </div>
+
+        <div class="field-wrap">
+          <label>
+            Password<span class="req">*Minimum 6 characters!</span>
+          </label>
+          <input type="password" name="password" required autocomplete="off" />
+        </div>
+
+        <div class="field-wrap">
+          <label>
+            Phone<span class="req">*</span>
+          </label>
+          <input type="text" name="phone" required autocomplete="off" />
+        </div>
+        <button type="submit" class="button button-block" />Register</button>
+
+      </form>
+
+    </div>
+
+    <div id="login">
+      <h1>Welcome!</h1>
+      <h1    th:if="${param.login_error}"
+             th:with="errorMsg=${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"></h1>
+
+      <form>
+
+        <div class="field-wrap">
+          <label>
+            Username<span class="req"></span>
+          </label>
+          <input type="email" name="email" id="email" required autocomplete="off" />
+        </div>
+
+        <div class="field-wrap">
+          <label>
+            Password<span class="req"></span>
+          </label>
+          <input type="password" name="password" id="password" required autocomplete="off" />
+        </div>
+
+        <button class="button button-block" onclick="login()">Log In</button>
+
+      </form>
+
+    </div>
+
+  </div><!-- tab-content -->
+
+</div> <!-- /form -->
+
+
+<script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
+
+<script>
+  // Initialize Firebase
+  const config = {
+    apiKey: "AIzaSyDxiSglc8jYouMhhYMc_wz43j4uS53UEYE",
+    authDomain: "speech2text-50475.firebaseapp.com",
+    databaseURL: "https://speech2text-50475-default-rtdb.firebaseio.com",
+    projectId: "speech2text-50475",
+    storageBucket: "speech2text-50475.appspot.com",
+    messagingSenderId: "433899594110",
+    appId: "1:433899594110:web:dcf0c617e373a77b28d32f",
+    measurementId: "G-M8PVV5CDRL"
+  };
+  firebase.initializeApp(config);
+
+  function login(){
+
+    var userEmail = document.getElementById("email").value;
+    var userPass = document.getElementById("password").value;
+    console.log(userEmail+" "+userPass)
+
+    firebase.auth().signInWithEmailAndPassword(userEmail, userPass).then((userCredential)=>
+    {
+      var user = userCredential.user
+      console.log(user.uid)
+    })
+            .catch(function(error) {
+              // Handle Errors here.
+              var errorCode = error.code;
+              var errorMessage = error.message;
+              window.alert("Error : " + errorMessage);
+
+            });
+
+  }
+
+  function logout(){
+    firebase.auth().signOut();
+  }
+
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      // User is signed in.
+      console.log("logged in")
+    } else {
+      console.log("not logged in")
+
+      // No user is signed in.
+    }
+  });
+
+</script>
+
+<script type="text/javascript" th:src="@{/js/auth.js}"></script>
+<script type="text/javascript" th:src="@{/js/auth_js.js}"></script>
+
+
+
+</body>
+</html>
